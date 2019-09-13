@@ -1,0 +1,65 @@
+body {
+    background:#141414;
+    display:flex;
+    color:white;
+    font-family:'museo-sans-rounded';
+    text-transform: uppercase;
+    font-weight:600;
+}
+
+.wrapper, html, body {
+    height: 100%;
+    margin: 0;
+}
+
+.sideBar {
+    flex-basis:285px;
+    background:#2b2b2b;
+    display:flex;
+    flex-direction: column;
+    padding:10px;
+    box-sizing:border-box;
+}
+
+.createCustomTag {
+    font-size:1.2em;
+    font-weight:600;
+    width:100%;
+    height:35px;
+    color:#fff2e6;
+    background:#f9861f;
+    border:2px solid #ffbc80;
+    border-radius:13px;
+    display:flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.separator {
+    border-bottom:1px solid #959595;
+    width:100%;
+    margin:10px 0;
+}
+
+.quickFilter[type=text] {
+    height:30px;
+    border:2px solid #fff2e6;
+    border-radius:13px;
+    padding:10px;
+    box-sizing: border-box;
+    font-family:'museo-sans-rounded';
+    text-transform: uppercase;
+    font-weight:600;
+    font-size:1em;
+}
+
+.quickFilter::placeholder {
+    color:rgba(0,0,0,0.2);    
+}
+
+.quickFilter:focus {
+    border:0;
+}
+
+.wrapper {
+}
