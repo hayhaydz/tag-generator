@@ -8,19 +8,145 @@
     <link rel="stylesheet" href="assets/css/reset.css" class="css">
     <link rel="stylesheet" href="assets/css/style.css" class="css">
     <link rel="stylesheet" href="https://use.typekit.net/hww1thk.css">
+    <script src="https://kit.fontawesome.com/a235af6417.js"></script>
 </head>
 <body>
     <div class="sideBar">
-        <div class="createCustomTag">
+        <div id="createCustomTag">
             create custom tag
+        </div>
+        <div class="createTagInterface">
+            
         </div>
         <div class="separator"></div>
         <input type="text" class="quickFilter" placeholder="quick filter">
+        <div class="separator"></div>
+        <ul class="tagsList">
+            <li>
+                <div class="tagName"><i class="fal fa-plus-circle"></i>Example</div>
+            </li>
+            <li>
+                <div class="tagName"><i class="fal fa-plus-circle"></i>Example 2</div>
+            </li>
+            <li>
+                <div class="tagName"><i class="fal fa-plus-circle"></i>Example 3</div>
+            </li>
+            <li>
+                <div class="tagName"><i class="fal fa-plus-circle"></i>Example 4</div>
+            </li>
+            <li>
+                <div class="tagName"><i class="fal fa-plus-circle"></i>Example 5</div>
+            </li>
+            <li>
+                <div class="tagName"><i class="fal fa-plus-circle"></i>Example 6</div>
+            </li>
+            <li>
+                <div class="tagName"><i class="fal fa-plus-circle"></i>Example 7</div>
+            </li>
+            <li>
+                <div class="tagName"><i class="fal fa-plus-circle"></i>Example 8</div>
+            </li>
+            <li>
+                <div class="tagName"><i class="fal fa-plus-circle"></i>Example 9</div>
+            </li>
+            <li>
+                <div class="tagName"><i class="fal fa-plus-circle"></i>Example 10</div>
+            </li>
+            <li>
+                <div class="tagName"><i class="fal fa-plus-circle"></i>Example 11</div>
+            </li>
+            <li>
+                <div class="tagName"><i class="fal fa-plus-circle"></i>Example 12</div>
+            </li>
+            <li>
+                <div class="tagName"><i class="fal fa-plus-circle"></i>Example 13</div>
+            </li>
+            <li>
+                <div class="tagName"><i class="fal fa-plus-circle"></i>Example 14</div>
+            </li>
+            <li>
+                <div class="tagName"><i class="fal fa-plus-circle"></i>Example 15</div>
+            </li>
+            <li>
+                <div class="tagName"><i class="fal fa-plus-circle"></i>Example 16</div>
+            </li>
+            <li>
+                <div class="tagName"><i class="fal fa-plus-circle"></i>Example 17</div>
+            </li>
+            <li>
+                <div class="tagName"><i class="fal fa-plus-circle"></i>Example 18</div>
+            </li>
+            <li>
+                <div class="tagName"><i class="fal fa-plus-circle"></i>Example 19</div>
+            </li>
+            <li>
+                <div class="tagName"><i class="fal fa-plus-circle"></i>Example 20</div>
+            </li>
+            <li>
+                <div class="tagName"><i class="fal fa-plus-circle"></i>Example 21</div>
+            </li>
+            <li>
+                <div class="tagName"><i class="fal fa-plus-circle"></i>Example 22</div>
+            </li>
+            <li>
+                <div class="tagName"><i class="fal fa-plus-circle"></i>Example 23</div>
+            </li>
+            <li>
+                <div class="tagName"><i class="fal fa-plus-circle"></i>Example 24</div>
+            </li>
+            <li>
+                <div class="tagName"><i class="fal fa-plus-circle"></i>Example 25</div>
+            </li>
+            <li>
+                <div class="tagName"><i class="fal fa-plus-circle"></i>Example 26</div>
+            </li>
+        </ul>
     </div>
     <div class="wrapper">
-
+        <div class="logo">
+            <img src="assets/img/logo.png" alt="" class="src">
+        </div>
+        <div class="formContainer">
+            <ul class="topRow">
+                <li class="tagEntry topRowMargin"><a href="#"><i class="fad fa-plus-circle"></i></a><input type="text" class="brandName" placeholder="Brand Name"></li>
+                <li class="tagEntry topRowMargin"><a href="#"><i class="fad fa-plus-circle"></i></a><span id="date"></span></li>
+                <li class="tagEntry topRowMargin">
+                    <a href="#"><i class="fad fa-plus-circle"></i></a>
+                    <select class="dropDown">
+                        <option value="0" style="color:#c1c1c1">Version</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                    </select>
+                </li>
+                <li class="tagEntry topRowMargin">
+                    <a href="#"><i class="fad fa-plus-circle"></i></a>
+                    <select class="dropDown">
+                        <option value="0" style="color:#c1c1c1">Variant</option>
+                        <option value="1">a</option>
+                        <option value="2">b</option>
+                        <option value="3">c</option>
+                    </select>
+                </li>
+            </ul>
+            <div class="bottomRow">
+                <input type="text" class="mainTagRow">
+                <li class="copyRow">Copy!</li>
+          </div>
+        </div>
+        
     </div>
 </body>
 </html>
-
+<script
+  src="https://code.jquery.com/jquery-3.4.1.min.js"
+  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+  crossorigin="anonymous"></script>
 <script src="assets/js/main.js"></script>
+<script>
+    n =  new Date();
+    y = n.getFullYear();
+    m = n.getMonth() + 1;
+    d = n.getDate();
+    document.getElementById("date").innerHTML = m + "/" + d + "/" + y;
+</script>
