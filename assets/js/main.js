@@ -1,11 +1,3 @@
-<<<<<<< Updated upstream
-$("#createCustomTag").click(function() {
-    $('.createTagInterface').toggleClass('createTagInterface-a');
-    $('.createTagInterface-a').removeClass('createTagInterface');
-});
-
-$(function() {
-=======
 $(function() {
 // FRONTEND
 
@@ -26,30 +18,36 @@ $(function() {
     $('.bootstrap-tagsinput > input').remove();
 
 // BACKEND
->>>>>>> Stashed changes
 
-    let tagsData;
+    // Global Variables
+        let tagsData;
+        let quickFilterInput = $('#quickFilter');
+        let tagsList = $('#tagsList');
 
     // Get Tags
-    $.ajax({
-        method: "POST",
-        url: "backend/fetch.php",
-        data: {data: "tags"},
-        dataType: "JSON",
-        success: function(data) {
-            let tagList = $('#tagsList');
-            data.forEach(element => {
-                tagList.append('<li><div class="tagName" id="tag_id_' + element.tag_id + '"><i class="fal fa-plus-circle"></i>' + element.tag_name +'</div><li>');
-            });
+    function getTags() {
+        tagsList.empty();
+        $.ajax({
+            method: "POST",
+            url: "backend/fetch.php",
+            data: {
+                option: "get_tags"
+            },
+            dataType: "JSON",
+            success: function(data) {
+                let tagList = $('#tagsList');
+                data.forEach(element => {
+                    tagList.append('<li><div class="tagName" id="tag_id_' + element.tag_id + '"><i class="fal fa-plus-circle"></i>' + element.tag_name +'</div><li>');
+                });
 
-            tagsData = data;
-        }
-    });
+                tagsData = data;
+            }
+        });
+    }
+    getTags();
 
 
     // Quick Filter
-    let quickFilterInput = $('#quickFilter');
-    let tagsList = $('#tagsList');
     quickFilterInput.on('input', function(e) {
         let quickFilterInputValue = quickFilterInput.val();
         if (quickFilterInputValue !== "") {
@@ -73,5 +71,43 @@ $(function() {
                 tagsList.append('<li><div class="tagName" id="tag_id_' + element.tag_id + '"><i class="fal fa-plus-circle"></i>' + element.tag_name +'</div><li>');
             });
         }
+    });
+
+    // Post Tag
+    $('#createCustomTag').click(function() {
+        let tag = {
+            "name": "Audit",
+            "abbreviation": "ADT"
+        };
+        let tagStr = JSON.stringify(tag);
+        $.ajax({
+            method: "POST",
+            url: "backend/fetch.php",
+            data: {
+                option: "post_tag",
+                data: tagStr
+            },
+            success: function(data) {
+                console.log(data);
+                getTags();
+            }
+        });
+    });
+
+
+    // Post Tagline
+    $('#copyButton').click(function() {
+        let tagline = "asdasd";
+        $.ajax({
+            method: "POST",
+            url: "backend/fetch.php",
+            data: {
+                option: "post_tagline",
+                data: tagline
+            },
+            success: function(data) {
+                console.log(data);
+            }
+        });
     });
 });
