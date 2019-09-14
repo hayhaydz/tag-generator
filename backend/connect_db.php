@@ -1,5 +1,5 @@
 <?php
-$con = mysqli_connect("localhost","phpmyadmin","mysqlpassword","sh-tag-generator");
+$con = mysqli_connect("localhost","b8mu9w12uwxm","MddC98^&XL","sh-tag-generator");
 
 // Check connection
 if (mysqli_connect_errno()) {
