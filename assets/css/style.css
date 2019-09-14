@@ -217,7 +217,8 @@ input:focus, textarea, select:focus {
 .bootstrap-tagsinput {
     display: flex;
     align-items: center;
-    max-width: 75%;
+    max-width: 50vw;
+    min-width: 40vw;
     height: 40px;
     margin: 10px 0;
     padding: 0 5px;
