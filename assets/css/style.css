@@ -32,6 +32,7 @@ input:focus, textarea, select:focus {
 
 ::-webkit-scrollbar {
     width: 6px;
+    height: 6px;
 }
 
 ::-webkit-scrollbar-track {
@@ -209,23 +210,30 @@ input:focus, textarea, select:focus {
 .bottomRow {
     width:100%;
     display:flex;
-    justify-content: space-between;
+    justify-content: space-evenly;
     align-items: center;
 }
 
-.mainTagRow {
-    width:100%;
-    margin:10px 0;
-    max-height:30px;
-    position:relative;
-    border:2px solid #fff2e6;
-    border-radius:13px;
-    padding:10px 5px;
-    box-sizing: border-box;
-    font-family:'museo-sans-rounded', 'FontAwesome';
-    text-transform: uppercase;
-    font-weight:600;
-    font-size:1em;
+.bootstrap-tagsinput {
+    display: flex;
+    align-items: center;
+    max-width: 75%;
+    height: 40px;
+    margin: 10px 0;
+    padding: 0 5px;
+    border: none;
+    box-shadow: none;
+    border-radius: 0;
+    cursor: default;
+    overflow-y: hidden;
+    overflow-x: auto;
+}
+
+.bootstrap-tagsinput .tag {
+    padding: 0 5px;
+    margin-left: 5px;
+    white-space: nowrap;
+    display: inline-block;
 }
 
 .copyRow {

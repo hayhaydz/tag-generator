@@ -1,11 +1,21 @@
 $(function() {
-// commit
 // FRONTEND
 
     // $("#createCustomTag").click(function() {
     //     $('.createTagInterface').toggleClass('createTagInterface-a');
     //     $('.createTagInterface-a').removeClass('createTagInterface');
     // });
+
+    // Date Tag
+    document.getElementById('tagDate').valueAsDate = new Date();
+
+    // Main Tag Row
+    let tagRow = $('#tagRow');
+    tagRow.tagsinput({
+        
+    });
+    // tagRow.tagsinput('add', 'some tag');
+    $('.bootstrap-tagsinput > input').remove();
 
 // BACKEND
 
