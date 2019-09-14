@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
     <link rel="stylesheet" href="assets/css/reset.css" class="css">
+    <link rel="stylesheet" href="assets/css/bootstrap-tagsinput.css">
     <link rel="stylesheet" href="assets/css/style.css" class="css">
     <link rel="stylesheet" href="https://use.typekit.net/hww1thk.css">
     <script src="https://kit.fontawesome.com/a235af6417.js"></script>
@@ -31,11 +32,10 @@
         </div>
         <div class="formContainer">
             <ul class="topRow">
-                <li class="tagEntry topRowMargin"><a href="#"><i class="fad fa-plus-circle"></i></a><input type="text" class="brandName" placeholder="Brand Name"></li>
-                <li class="tagEntry topRowMargin"><a href="#"><i class="fad fa-plus-circle"></i></a><span id="date"></span></li>
+                <li class="tagEntry topRowMargin"><input type="text" id="tagBrandName" class="brandName" placeholder="Brand Name"></li>
+                <li class="tagEntry topRowMargin"><input type="date" id="tagDate"></li>
                 <li class="tagEntry topRowMargin">
-                    <a href="#"><i class="fad fa-plus-circle"></i></a>
-                    <select class="dropDown">
+                    <select class="dropDown" id="tagVersion">
                         <option value="0" style="color:#c1c1c1">Version</option>
                         <option value="1">1</option>
                         <option value="2">2</option>
@@ -43,8 +43,7 @@
                     </select>
                 </li>
                 <li class="tagEntry topRowMargin">
-                    <a href="#"><i class="fad fa-plus-circle"></i></a>
-                    <select class="dropDown">
+                    <select class="dropDown" id="tagVariant">
                         <option value="0" style="color:#c1c1c1">Variant</option>
                         <option value="1">a</option>
                         <option value="2">b</option>
@@ -53,8 +52,13 @@
                 </li>
             </ul>
             <div class="bottomRow">
+<<<<<<< Updated upstream
                 <input type="text" class="mainTagRow">
                 <li class="copyRow">Copy!</li>
+=======
+                <input type="text" class="mainTagRow" id="tagRow" value="SH, Herbally, 9/16/19, V2, B, BA, PROD" >
+                <li class="copyRow" id="copyButton">Copy!</li>
+>>>>>>> Stashed changes
           </div>
         </div>
         
@@ -65,11 +69,5 @@
   src="https://code.jquery.com/jquery-3.4.1.min.js"
   integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
   crossorigin="anonymous"></script>
+<script src="assets/js/bootstrap-tagsinput.js"></script>
 <script src="assets/js/main.js"></script>
-<script>
-    n =  new Date();
-    y = n.getFullYear();
-    m = n.getMonth() + 1;
-    d = n.getDate();
-    document.getElementById("date").innerHTML = m + "/" + d + "/" + y;
-</script>
