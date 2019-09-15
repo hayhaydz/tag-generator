@@ -38,11 +38,11 @@ if (isset($_POST["option"])) {
         $sqlName = "SELECT * FROM `tags` WHERE `tag_name`='$tagName' ";
         $resultName = $con->query($sqlName);
 
-        if ($resultName->num_rows < 0) {
+        if ($resultName->num_rows <= 0) {
             $sqlAbbreviation = "SELECT * FROM `tags` WHERE `tag_abbreviation`='$tagAbbreviation' ";
             $resultAbbreviation = $con->query($sqlAbbreviation);
 
-            if ($resultAbbreviation->num_rows < 0) {
+            if ($resultAbbreviation->num_rows <= 0) {
                 $sql = "INSERT INTO tags (`tag_name`, `tag_abbreviation`, `tag_description`) VALUES ('".$tag['name']."', '".$tag['abbreviation']."', '".$tag['description']."')";
                 if (mysqli_query($con, $sql)) {
                     $return_array[] = array(

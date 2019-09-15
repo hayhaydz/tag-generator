@@ -47,12 +47,6 @@ $(function() {
         mainTags[mainTags.length - 1].children[0].remove();
         mainTags[mainTags.length - 2].children[0].remove();
         mainTags[mainTags.length - 3].children[0].remove();
-
-        mainTags[0].className += ' disabled-tag';
-        mainTags[1].className += ' disabled-tag';
-        mainTags[mainTags.length - 1].className += ' disabled-tag';
-        mainTags[mainTags.length - 2].className += ' disabled-tag';
-        mainTags[mainTags.length - 3].className += ' disabled-tag';
     }
     initTagsInput();
 
@@ -274,14 +268,14 @@ $(function() {
                     success: function(data) {
                         if (isJson(data)) {
                             let response = JSON.parse(data);
-                            if (data.status == "OKAY") {
-                                console.log(response[0]);
-                                tagName.value = "";
-                                tagDescription.value = "";
-                                tagAbbreviation.value = "";
+                            if (response[0].status == "OKAY") {
+                                $('#newTagName').val('');
+                                $('#newTagDescription').val('');
+                                $('#newTagAbbreviation').val('');
                                 getTags();
                             } else {
-                                console.log(response[0].message);
+                                console.log('error');
+                                console.log(response[0]);
                             }
                         }
                     }
