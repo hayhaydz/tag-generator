@@ -126,7 +126,7 @@ input:focus, textarea, select:focus {
 }
 
 .formContainer {
-    height:300px;
+    width:610px;
     margin:0 auto;
     display:flex;
     align-items: center;
@@ -175,6 +175,17 @@ input:focus, textarea, select:focus {
     color:rgba(0,0,0,0.2);    
 }
 
+.tagDate {
+    width:145px;
+    border-radius: 10px;
+    border: 0;
+    box-sizing: border-box;
+    font-family:'museo-sans-rounded';
+    font-weight: 600;
+    font-size: 1em;
+    color:#444;
+}
+
 .dropDown {
     font-family:'museo-sans-rounded';
     text-transform: uppercase;
@@ -212,22 +223,35 @@ input:focus, textarea, select:focus {
     display:flex;
     justify-content: space-evenly;
     align-items: center;
+    position:relative;
 }
 
+.backgroundBox {
+    position:absolute;
+    top:15px;
+    left:0;
+    z-index:-1;
+    height:30px;
+    border-radius:20px;
+    width:545px;
+    background:white;
+}
+
+
 .bootstrap-tagsinput {
+    z-index:2;
     display: flex;
     align-items: center;
-    max-width: 50vw;
-    min-width: 40vw;
+    flex:1;
     height: 40px;
-    margin: 10px 0;
-    padding: 0 5px;
+    margin-top: 5px;
     border: none;
     box-shadow: none;
-    border-radius: 0;
+    border-radius: 20px;
     cursor: default;
-    overflow-y: hidden;
-    overflow-x: auto;
+    background-color:rgba(0,0,0,0);
+    padding: 5px 0;
+    min-width:520px;
 }
 
 .bootstrap-tagsinput .tag {
@@ -235,9 +259,34 @@ input:focus, textarea, select:focus {
     margin-left: 5px;
     white-space: nowrap;
     display: inline-block;
+    border-radius: 10px;
+}
+
+#scrollbar {
+  overflow-x: scroll;
+  overflow-y:hidden;
+  margin:0 10px;
+}
+
+.scrollData {
+}
+
+#scrollbar::-webkit-scrollbar {
+  height: .5rem;
+}
+
+#scrollbar::-webkit-scrollbar-track {
+  background-color: #aaa;
+  border-radius: .5rem;
+}
+
+#scrollbar::-webkit-scrollbar-thumb {
+  background-color: #555;
+  border-radius: .5rem;
 }
 
 .copyRow {
+    flex:1;
     background:#3ae06d;
     border:2px solid #89f2a9;
     border-radius:13px;
