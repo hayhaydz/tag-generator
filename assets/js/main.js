@@ -32,8 +32,16 @@ $(function() {
     function initTagsInput() {
         tagRow.tagsinput({});
         $('.bootstrap-tagsinput > input').remove();
-        // Disable removing certain tags
         let mainTags = $('.tag');
+        // Adding disabled tag class
+
+        mainTags[0].className += ' disabled-tag';
+        mainTags[1].className += ' disabled-tag';
+        mainTags[mainTags.length - 1].className += ' disabled-tag';
+        mainTags[mainTags.length - 2].className += ' disabled-tag';
+        mainTags[mainTags.length - 3].className += ' disabled-tag';
+
+        // Disable removing certain tags
         mainTags[0].children[0].remove();
         mainTags[1].children[0].remove();
         mainTags[mainTags.length - 1].children[0].remove();
@@ -260,6 +268,7 @@ $(function() {
                     },
                     success: function(data) {
                         console.log(data);
+                        getTags();
                     }
                 });
             } else {
