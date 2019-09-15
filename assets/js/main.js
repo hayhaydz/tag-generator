@@ -47,6 +47,12 @@ $(function() {
         mainTags[mainTags.length - 1].children[0].remove();
         mainTags[mainTags.length - 2].children[0].remove();
         mainTags[mainTags.length - 3].children[0].remove();
+
+        mainTags[0].className += ' disabled-tag';
+        mainTags[1].className += ' disabled-tag';
+        mainTags[mainTags.length - 1].className += ' disabled-tag';
+        mainTags[mainTags.length - 2].className += ' disabled-tag';
+        mainTags[mainTags.length - 3].className += ' disabled-tag';
     }
     initTagsInput();
 
@@ -266,12 +272,14 @@ $(function() {
                         data: tagStr
                     },
                     success: function(data) {
-                        let response = JSON.parse(data);
-                        if (data.status == "OKAY") {
-                            console.log(response[0]);
-                            getTags();
-                        } else {
-                            console.log(response[0].message);
+                        if (isJson(data)) {
+                            let response = JSON.parse(data);
+                            if (data.status == "OKAY") {
+                                console.log(response[0]);
+                                getTags();
+                            } else {
+                                console.log(response[0].message);
+                            }
                         }
                     }
                 });
@@ -317,4 +325,14 @@ $(function() {
     });
 
 });
+
+// https://stackoverflow.com/questions/9804777/how-to-test-if-a-string-is-json-or-not
+function isJson(str) {
+    try {
+        JSON.parse(str);
+    } catch (e) {
+        return false;
+    }
+    return true;
+}
 
