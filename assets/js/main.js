@@ -9,16 +9,145 @@ $(function() {
     // Date Tag
     document.getElementById('tagDate').valueAsDate = new Date();
 
+    // Set date in tag to todays date
+    let dateVal = new Date().toLocaleDateString();
+    let currentInputVal = $('#tagRow').val();
+    let inputValArr = currentInputVal.split(',');
+    let tagRowDateLoc = inputValArr.length - 3;
+    let newInputValArr = inputValArr.splice(tagRowDateLoc, 1, dateVal);
+    let inputVal = inputValArr.join();
+    $('.mainTagRow').val(inputVal);
+
     // Main Tag Row
     let tagRow = $('#tagRow');
-    tagRow.tagsinput({});
-    $('.bootstrap-tagsinput > input').remove();
+
+    function initTagsInput() {
+        tagRow.tagsinput({});
+        $('.bootstrap-tagsinput > input').remove();
+        // Disable removing certain tags
+        let mainTags = $('.tag');
+        mainTags[0].children[0].remove();
+        mainTags[1].children[0].remove();
+        mainTags[mainTags.length - 1].children[0].remove();
+        mainTags[mainTags.length - 2].children[0].remove();
+        mainTags[mainTags.length - 3].children[0].remove();
+    }
+    initTagsInput();
 
     // Adding tags to main tag row
-    let tagName = $('#tagName');
+    // Version tag for main tag row
+    let tagName = $('#tagBrandName');
+    tagName.on('input', function() {
+        let tagNameVal = tagName.val();
+        if (tagNameVal !== "") {
+            let specialChars = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/;
+            if (!specialChars.test(tagNameVal)) {
+                tagRow.tagsinput('destroy');
+                let tagName = tagNameVal.replace(/\s/g, '-');
+                let currentInputVal = $('#tagRow').val();
+                let inputValArr = currentInputVal.split(',');
+                let newInputValArr = inputValArr.splice(1, 1, tagName);
+                let inputVal = inputValArr.join();
+                $('.mainTagRow').val(inputVal);
+                initTagsInput();
+            } else {
+                console.log('special characters in brand name');
+            }
+        }
+        else {
+            tagRow.tagsinput('destroy');
+            let currentInputVal = $('#tagRow').val();
+            let inputValArr = currentInputVal.split(',');
+            let newInputValArr = inputValArr.splice(1, 1, "Herbally");
+            let inputVal = inputValArr.join();
+            $('.mainTagRow').val(inputVal);
+            initTagsInput();
+        }
+    });
+
+    // Date tag for main tag row
     let tagDate = $('#tagDate');
+    tagDate.on('change', function() {
+        let tagDateVal = tagDate.val();
+        if (tagDateVal !== "") {
+            tagRow.tagsinput('destroy');
+            let currentDateVal = tagDate.val();
+            let dateVal = new Date(currentDateVal).toLocaleDateString();
+            let currentInputVal = $('#tagRow').val();
+            let inputValArr = currentInputVal.split(',');
+            let tagRowDateLoc = inputValArr.length - 3;
+            let newInputValArr = inputValArr.splice(tagRowDateLoc, 1, dateVal);
+            let inputVal = inputValArr.join();
+            $('.mainTagRow').val(inputVal);
+            initTagsInput();
+        }
+        else {
+            tagRow.tagsinput('destroy');
+            let todayDateL = new Date();
+            let todayDate = todayDateL.toLocaleDateString();
+            let currentInputVal = $('#tagRow').val();
+            let inputValArr = currentInputVal.split(',');
+            let tagRowDateLoc = inputValArr.length - 3;
+            let newInputValArr = inputValArr.splice(tagRowDateLoc, 1, todayDate);
+            let inputVal = inputValArr.join();
+            $('.mainTagRow').val(inputVal);
+            initTagsInput();
+        }
+    });
+
+    // Version tag for main tag row
     let tagVersion = $('#tagVersion');
+    tagVersion.on('change', function() {
+        let tagVersionVal = tagVersion.val();
+        if (tagVersionVal !== "0") {
+            tagRow.tagsinput('destroy');
+            let currentVersionVal = tagVersion.val();
+            let currentInputVal = $('#tagRow').val();
+            let inputValArr = currentInputVal.split(',');
+            let tagRowVersionLoc = inputValArr.length - 2;
+            let newInputValArr = inputValArr.splice(tagRowVersionLoc, 1, "v" + currentVersionVal);
+            let inputVal = inputValArr.join();
+            $('.mainTagRow').val(inputVal);
+            initTagsInput();
+        }
+        else {
+            tagRow.tagsinput('destroy');
+            let currentInputVal = $('#tagRow').val();
+            let inputValArr = currentInputVal.split(',');
+            let tagRowVersionLoc = inputValArr.length - 2;
+            let newInputValArr = inputValArr.splice(tagRowVersionLoc, 1, "V1");
+            let inputVal = inputValArr.join();
+            $('.mainTagRow').val(inputVal);
+            initTagsInput();
+        }
+    });
+
+    // Variant tag for main tag row
     let tagVariant = $('#tagVariant');
+    tagVariant.on('change', function() {
+        let tagVariantVal = tagVariant.val();
+        if (tagVariantVal !== "0") {
+            tagRow.tagsinput('destroy');
+            let currentVariantVal = tagVariant.val();
+            let currentInputVal = $('#tagRow').val();
+            let inputValArr = currentInputVal.split(',');
+            let tagRowVariantLoc = inputValArr.length - 1;
+            let newInputValArr = inputValArr.splice(tagRowVariantLoc, 1, currentVariantVal);
+            let inputVal = inputValArr.join();
+            $('.mainTagRow').val(inputVal);
+            initTagsInput();
+        }
+        else {
+            tagRow.tagsinput('destroy');
+            let currentInputVal = $('#tagRow').val();
+            let inputValArr = currentInputVal.split(',');
+            let tagRowVersionLoc = inputValArr.length - 1;
+            let newInputValArr = inputValArr.splice(tagRowVersionLoc, 1, "A");
+            let inputVal = inputValArr.join();
+            $('.mainTagRow').val(inputVal);
+            initTagsInput();
+        }
+    });
 
 // BACKEND
 
@@ -65,14 +194,13 @@ $(function() {
                         let newInputValArr = inputValArr.splice(2, 0, tagAbbreviation);
                         let inputVal = inputValArr.join();
                         $('.mainTagRow').val(inputVal);
-                        tagRow.tagsinput({});
-                        $('.bootstrap-tagsinput > input').remove();
+                        initTagsInput();
                     });
 
             }
         });
     }
-    getTags()
+    getTags();
 
 
     // Quick Filter
@@ -125,7 +253,17 @@ $(function() {
 
     // Post Tagline
     $('#copyButton').click(function() {
-        let tagline = "asdasd";
+        function copyToClipboard(text) {
+            var placeholderTextarea = document.createElement("textarea");
+            document.body.appendChild(placeholderTextarea);
+            placeholderTextarea.value = text;
+            placeholderTextarea.select();
+            document.execCommand("copy");
+            document.body.removeChild(placeholderTextarea);
+        }
+        let taglineO = document.getElementById('tagRow').value;
+        let tagline = taglineO.replace(/,/g,'-');
+        copyToClipboard(tagline);
         $.ajax({
             method: "POST",
             url: "backend/fetch.php",

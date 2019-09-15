@@ -260,7 +260,7 @@ input:focus, textarea, select:focus {
 }
 
 .bootstrap-tagsinput .tag {
-    padding: 0 5px;
+    padding: 0 10px;
     white-space: nowrap;
     display: inline-block;
     border-radius: 10px;
