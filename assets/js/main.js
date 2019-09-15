@@ -65,7 +65,7 @@ $(function() {
             tagRow.tagsinput('destroy');
             let currentInputVal = $('#tagRow').val();
             let inputValArr = currentInputVal.split(',');
-            let newInputValArr = inputValArr.splice(1, 1, "Herbally");
+            let newInputValArr = inputValArr.splice(1, 1, "Brand-Name");
             let inputVal = inputValArr.join();
             $('.mainTagRow').val(inputVal);
             initTagsInput();
@@ -298,3 +298,4 @@ $(function() {
     });
 
 });
+
