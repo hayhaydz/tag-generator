@@ -16,6 +16,10 @@ a, a:visited, a:focus, a:active {
     color:black;
 }
 
+button {
+    outline:none;
+}
+
 input:focus, textarea, select:focus {
     outline: none;
 }
