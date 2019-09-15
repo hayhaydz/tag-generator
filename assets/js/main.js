@@ -276,6 +276,9 @@ $(function() {
                             let response = JSON.parse(data);
                             if (data.status == "OKAY") {
                                 console.log(response[0]);
+                                tagName.value = "";
+                                tagDescription.value = "";
+                                tagAbbreviation.value = "";
                                 getTags();
                             } else {
                                 console.log(response[0].message);
