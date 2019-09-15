@@ -30,13 +30,53 @@ if (isset($_POST["option"])) {
     if ($_POST["option"] == "post_tag") {
         $data = $_POST['data'];
         $tag = json_decode($data, true);
+        $tagName = $tag['name'];
+        $tagAbbreviation = $tag['abbreviation'];
 
-        $sql = "INSERT INTO tags (`tag_name`, `tag_abbreviation`, `tag_description`) VALUES ('".$tag['name']."', '".$tag['abbreviation']."', '".$tag['description']."')";
-        if (mysqli_query($con, $sql)) {
-            echo 'Tag inserted successfully';
+        $sqlName = "SELECT * FROM `tags` WHERE `tag_name`='$tagName' ";
+        $resultName = $con->query($sqlName);
+
+        if ($resultName->num_rows < 0) {
+            $sqlAbbreviation = "SELECT * FROM `tags` WHERE `tag_abbreviation`='$tagAbbreviation' ";
+            $resultAbbreviation = $con->query($sqlAbbreviation);
+
+            if ($resultAbbreviation->num_rows < 0) {
+                $sql = "INSERT INTO tags (`tag_name`, `tag_abbreviation`, `tag_description`) VALUES ('".$tag['name']."', '".$tag['abbreviation']."', '".$tag['description']."')";
+                if (mysqli_query($con, $sql)) {
+                    $return_array[] = array(
+                        "status" => "OKAY",
+                        "message" => "Tag inserted successfully"
+                    );
+        
+                    echo json_encode($return_array);
+                } else {
+                    $return_array[] = array(
+                        "status" => "OKAY",
+                        "message" => "Error: " . $sql . "" . mysqli_error($con)
+                    );
+        
+                    echo json_encode($return_array);
+                }
+                mysqli_close($con);
+            }
+            } else {
+                $return_array[] = array(
+                    "status" => "ERROR",
+                    "message" => "Duplicate Abbreviation Entry"
+                );
+
+                echo json_encode($return_array);
+            }
+            mysqli_close($con);
         } else {
-            echo "Error: " . $sql . "" . mysqli_error($con);
+            $return_array[] = array(
+                "status" => "ERROR",
+                "message" => "Duplicate Name Entry"
+            );
+
+            echo json_encode($return_array);
         }
+
 
         mysqli_close($con);
     }

@@ -61,7 +61,7 @@ $(function() {
                 tagRow.tagsinput('destroy');
                 let currentInputVal = $('#tagRow').val();
                 let inputValArr = currentInputVal.split(',');
-                let newInputValArr = inputValArr.splice(1, 1, tagName);
+                let newInputValArr = inputValArr.splice(1, 1, tagNameVal);
                 let inputVal = inputValArr.join();
                 $('.mainTagRow').val(inputVal);
                 initTagsInput();
@@ -267,8 +267,13 @@ $(function() {
                         data: tagStr
                     },
                     success: function(data) {
-                        console.log(data);
-                        getTags();
+                        let response = JSON.parse(data);
+                        if (data.status == "OKAY") {
+                            console.log(response[0]);
+                            getTags();
+                        } else {
+                            console.log(response[0].message);
+                        }
                     }
                 });
             } else {
@@ -290,8 +295,14 @@ $(function() {
             document.execCommand("copy");
             document.body.removeChild(placeholderTextarea);
         }
-        let taglineO = document.getElementById('tagRow').value;
-        let tagline = taglineO.replace(/,/g,'-');
+        let taglineO = document.getElementById('tagRow').value.toUpperCase();
+        let taglineArr = taglineO.split(',');
+        let taglineArrSpliced = taglineArr;
+        let taglineDateLoc = taglineArr.length - 3;
+        let taglineArrSplice = taglineArrSpliced.splice(1, 1, "[" + taglineArr[1] + "]");
+        taglineArrSplice = taglineArrSpliced.splice(taglineDateLoc, 1, "[" + taglineArr[taglineDateLoc] + "]");
+        let taglineVal = taglineArrSpliced.join();
+        let tagline = taglineVal.replace(/,/g,'-');
         copyToClipboard(tagline);
         $.ajax({
             method: "POST",
