@@ -89,11 +89,11 @@ input:focus, textarea, select:focus {
 }
 
 .tagsList li .tagName {
-    border:1px solid #959595;
+    border:1px dashed #959595;
     border-radius:15px;
     padding:5px 10px 5px 5px;
-    background:#f3f3f3;
-    color:#141414;
+    background:#000;
+    color:#ccc;
     margin:7px 0;
 }
 
@@ -273,19 +273,20 @@ input:focus, textarea, select:focus {
 }
 
 .scrollData {
+    margin: -2px 0;
 }
 
 #scrollbar::-webkit-scrollbar {
-  height: .5rem;
+  height: .6rem;
 }
 
 #scrollbar::-webkit-scrollbar-track {
-  background-color: #aaa;
+  background-color: rgba(255,255,255,0.2);
   border-radius: .5rem;
 }
 
 #scrollbar::-webkit-scrollbar-thumb {
-  background-color: #555;
+  background-color:  rgba(255,255,255,0.2);
   border-radius: .5rem;
 }
 
