@@ -1,10 +1,18 @@
 $(function() {
  // FRONTEND
 
-    // $("#createCustomTag").click(function() {
-    //     $('.createTagInterface').toggleClass('createTagInterface-a');
-    //     $('.createTagInterface-a').removeClass('createTagInterface');
-    // });
+    let createTagInterfaceOpen = false;
+    let createTagInterface = $('#createTagInterface');
+
+    $("#createCustomTag").click(function() {
+        if (!createTagInterfaceOpen) {
+            createTagInterfaceOpen = true;
+            createTagInterface.animate({"max-height": "500px"}, 250);
+        } else {
+            createTagInterfaceOpen = false;
+            createTagInterface.animate({"max-height": "0"}, 250);
+        }
+    });
 
     // Date Tag
     document.getElementById('tagDate').valueAsDate = new Date();
@@ -43,7 +51,6 @@ $(function() {
             let specialChars = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/;
             if (!specialChars.test(tagNameVal)) {
                 tagRow.tagsinput('destroy');
-                let tagName = tagNameVal.replace(/\s/g, '-');
                 let currentInputVal = $('#tagRow').val();
                 let inputValArr = currentInputVal.split(',');
                 let newInputValArr = inputValArr.splice(1, 1, tagName);
@@ -230,24 +237,37 @@ $(function() {
     });
 
     // Post Tag
-    $('#createCustomTag').click(function() {
-        let tag = {
-            "name": "Audit",
-            "abbreviation": "ADT"
-        };
-        let tagStr = JSON.stringify(tag);
-        $.ajax({
-            method: "POST",
-            url: "backend/fetch.php",
-            data: {
-                option: "post_tag",
-                data: tagStr
-            },
-            success: function(data) {
-                console.log(data);
-                getTags();
+    $('#newTagSubmit').click(function() {
+        let specialChars = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/;
+        let tagName = $('#newTagName').val();
+        if (!specialChars.test(tagName)) {
+            let tagDescription = $('#newTagDescription').val();
+            let tagAbbreviation = $('#newTagAbbreviation').val();
+            let specialCharsAbbr = /[ !@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/;
+            if (!specialCharsAbbr.test(tagAbbreviation)) {
+                let tag = {
+                    "name": tagName,
+                    "abbreviation": tagAbbreviation,
+                    "description": tagDescription
+                };
+                let tagStr = JSON.stringify(tag);
+                $.ajax({
+                    method: "POST",
+                    url: "backend/fetch.php",
+                    data: {
+                        option: "post_tag",
+                        data: tagStr
+                    },
+                    success: function(data) {
+                        console.log(data);
+                    }
+                });
+            } else {
+                console.log('special characters used');
             }
-        });
+        } else {
+            console.log('special characters used');
+        }
     });
 
 

@@ -66,6 +66,39 @@ input:focus, textarea, select:focus {
     transform: scale(1.03)
 }
 
+.createTagInterface {
+    max-height: 0;
+    overflow: hidden;
+    transition: 250ms ease-in-out;
+}
+
+.newTagName {
+    width: 100%;
+    margin-top: 15px;
+    margin-bottom: 10px;
+}
+
+.newTagDescription {
+    width: 100%;
+    resize: none;
+    margin-bottom: 10px;
+}
+
+.newTagBottomRow {
+    display: flex;
+    flex: 0 0 50%;
+    width: 100%;
+}
+
+.newTagAbbreviation {
+    width: 100%;
+    margin-right: 10px;
+}
+
+.newTagSubmit {
+    width: 100%;
+}
+
 .separator {
     border-bottom:1px solid #959595;
     width:100%;

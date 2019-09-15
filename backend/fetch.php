@@ -31,7 +31,7 @@ if (isset($_POST["option"])) {
         $data = $_POST['data'];
         $tag = json_decode($data, true);
 
-        $sql = "INSERT INTO tags (`tag_name`, `tag_abbreviation`) VALUES ('".$tag['name']."', '".$tag['abbreviation']."')";
+        $sql = "INSERT INTO tags (`tag_name`, `tag_abbreviation`, `tag_description`) VALUES ('".$tag['name']."', '".$tag['abbreviation']."', '".$tag['description']."')";
         if (mysqli_query($con, $sql)) {
             echo 'Tag inserted successfully';
         } else {
