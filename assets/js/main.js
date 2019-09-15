@@ -28,7 +28,7 @@ $(function() {
         let tagsList = $('#tagsList');
 
     // Get Tags
-    async function getTags() {
+    function getTags() {
         tagsList.empty();
         $.ajax({
             method: "POST",
