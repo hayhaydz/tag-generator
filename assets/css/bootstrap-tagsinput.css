@@ -43,6 +43,7 @@
 .bootstrap-tagsinput .tag [data-role="remove"] {
   margin-left: 8px;
   cursor: pointer;
+  margin-right:-6px;
 }
 .bootstrap-tagsinput .tag [data-role="remove"]:after {
   content: '\f057';
