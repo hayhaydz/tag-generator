@@ -273,7 +273,7 @@ input:focus, textarea, select:focus {
 }
 
 .scrollData {
-    margin: -2px 0;
+    margin:0 0 -4px 0;
 }
 
 #scrollbar::-webkit-scrollbar {
