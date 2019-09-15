@@ -14,11 +14,13 @@ if (isset($_POST["option"])) {
             $id = $row['tag_id'];
             $name = $row['tag_name'];
             $abbreviation = $row['tag_abbreviation'];
+            $description = $row['tag_description'];
 
             $return_array[] = array(
                 "tag_id" => $id,
                 "tag_name" => $name,
-                "tag_abbreviation" => $abbreviation
+                "tag_abbreviation" => $abbreviation,
+                "tag_description" => $description
             );
         }
 
@@ -56,9 +58,9 @@ if (isset($_POST["option"])) {
                     );
         
                     echo json_encode($return_array);
+                    die;
                 }
                 mysqli_close($con);
-            }
             } else {
                 $return_array[] = array(
                     "status" => "ERROR",
@@ -66,6 +68,7 @@ if (isset($_POST["option"])) {
                 );
 
                 echo json_encode($return_array);
+                die;
             }
             mysqli_close($con);
         } else {
@@ -76,8 +79,6 @@ if (isset($_POST["option"])) {
 
             echo json_encode($return_array);
         }
-
-
         mysqli_close($con);
     }
 

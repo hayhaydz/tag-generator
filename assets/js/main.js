@@ -184,7 +184,7 @@ $(function() {
             success: function(data) {
                 let tagList = $('#tagsList');
                 data.forEach(element => {
-                    tagList.append('<li><div class="tagName mainTag" id="tag_id_' + element.tag_id + '"><i class="fal fa-plus-circle mainTagAdd"></i>' + element.tag_name +'</div><li>');
+                    tagList.append('<li><div class="tagName mainTag" id="tag_id_' + element.tag_id + '" data-html="true" aria-label="' + element.tag_name + '&#10;' + element.tag_abbreviation + '&#10;' + element.tag_description + '" data-balloon-break data-balloon-pos="down-right"><i class="fal fa-plus-circle mainTagAdd"></i>' + element.tag_name +'</div><li>');
                 });
 
                 tagsData = data;
@@ -211,7 +211,6 @@ $(function() {
                         $('.mainTagRow').val(inputVal);
                         initTagsInput();
                     });
-
             }
         });
     }
@@ -234,12 +233,12 @@ $(function() {
 
             tagsList.empty();
             quickFilterData.forEach(element => {
-                tagsList.append('<li><div class="tagName mainTag" id="tag_id_' + element.tag_id + '"><i class="fal fa-plus-circle mainTagAdd"></i>' + element.tag_name +'</div><li>');
+                tagsList.append('<li><div class="tagName mainTag" id="tag_id_' + element.tag_id + '" data-html="true" aria-label="' + element.tag_name + '&#10;' + element.tag_abbreviation + '&#10;' + element.tag_description + '" data-balloon-break data-balloon-pos="down-right"><i class="fal fa-plus-circle mainTagAdd"></i>' + element.tag_name +'</div><li>');
             });
         } else {
             tagsList.empty();
             tagsData.forEach(element => {
-                tagsList.append('<li><div class="tagName mainTag" id="tag_id_' + element.tag_id + '"><i class="fal fa-plus-circle mainTagAdd"></i>' + element.tag_name +'</div><li>');
+                tagsList.append('<li><div class="tagName mainTag" id="tag_id_' + element.tag_id + '" data-html="true" aria-label="' + element.tag_name + '&#10;' + element.tag_abbreviation + '&#10;' + element.tag_description + '" data-balloon-break data-balloon-pos="down-right"><i class="fal fa-plus-circle mainTagAdd"></i>' + element.tag_name +'</div><li>');
             });
         }
     });
