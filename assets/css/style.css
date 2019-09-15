@@ -104,10 +104,15 @@ input:focus, textarea, select:focus {
 
 .tagsList i {
     margin-right:5px;
-    background:#baf2cb;
     border-radius:50%;
     cursor:pointer;
     color: #3ae06d;
+}
+
+.tagsList i:hover{
+    background:#baf2cb;
+    transition:all 0.3s ease;
+    transform: scale(1.1)
 }
 
 .quickFilter:focus {
@@ -256,7 +261,6 @@ input:focus, textarea, select:focus {
 
 .bootstrap-tagsinput .tag {
     padding: 0 5px;
-    margin-left: 5px;
     white-space: nowrap;
     display: inline-block;
     border-radius: 10px;
