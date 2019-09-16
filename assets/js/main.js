@@ -59,7 +59,7 @@ $(function() {
                 for (let x = 0; x < tagsData.length; x++) {
                     if (tagsData[x].tag_abbreviation == currentTagAbbreviation) {
                         mainTags[i].setAttribute('data-html', 'true');
-                        mainTags[i].setAttribute('aria-label', tagsData[x].tag_name + '&#10;' + tagsData[x].tag_abbreviation + '&#10;' + tagsData[x].tag_description);
+                        mainTags[i].setAttribute('aria-label', tagsData[x].tag_name + ' \n ' + tagsData[x].tag_abbreviation + ' \n ' + tagsData[x].tag_description);
                         mainTags[i].setAttribute('data-balloon-break', '');
                         mainTags[i].setAttribute('data-balloon-pos', 'down-right');
                     }
