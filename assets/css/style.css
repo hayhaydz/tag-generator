@@ -359,6 +359,7 @@ input:focus, textarea, select:focus {
     white-space: nowrap;
     display: inline-block;
     border-radius: 10px;
+    max-width: fit-content;
 }
 
 #scrollbar {
@@ -411,21 +412,22 @@ input:focus, textarea, select:focus {
     background:#ffbc80 !important;
 }
 
-.titleHistory {
+.taglineHistory {
     position:relative;
     margin-top:20px;
-    max-height:250px;
+    max-height:240px;
     overflow-y:auto;
     z-index:10;
+    text-align:center;
+    padding:0 20px;
 }
 
-.titleHistory li {
+.taglineHistory li {
     cursor:pointer;
     transition:all .3s ease;
     line-height:1.5em;
 }
 
-.titleHistory li:hover {
+.taglineHistory li:hover {
     color:grey;
 }
-
