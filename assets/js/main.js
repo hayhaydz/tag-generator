@@ -2,9 +2,9 @@ $(function() {
  // FRONTEND
 
     let createTagInterfaceOpen = false;
-    let createTagInterface = $('#createTagInterface');
+    function openCloseCreateTagInterface() {
+        let createTagInterface = $('#createTagInterface');
 
-    $("#createCustomTag").click(function() {
         if (!createTagInterfaceOpen) {
             createTagInterfaceOpen = true;
             createTagInterface.animate({"height": "230px"}, 250);
@@ -12,6 +12,10 @@ $(function() {
             createTagInterfaceOpen = false;
             createTagInterface.animate({"height": "0"}, 250);
         }
+    }
+
+    $("#createCustomTag").click(function() {
+        openCloseCreateTagInterface();
     });
 
     // Date Tag
@@ -33,8 +37,8 @@ $(function() {
         tagRow.tagsinput({});
         $('.bootstrap-tagsinput > input').remove();
         let mainTags = $('.tag');
-        // Adding disabled tag class
 
+        // Adding disabled tag class
         mainTags[0].className += ' disabled-tag';
         mainTags[1].className += ' disabled-tag';
         mainTags[mainTags.length - 1].className += ' disabled-tag';
@@ -47,6 +51,21 @@ $(function() {
         mainTags[mainTags.length - 1].children[0].remove();
         mainTags[mainTags.length - 2].children[0].remove();
         mainTags[mainTags.length - 3].children[0].remove();
+
+        // Adding unique identifier to each new tag
+        for (let i = 0; i < mainTags.length; i++) {
+            if (i !== 0 && i !== 1 && i !== mainTags.length - 1 && i !== mainTags.length - 2 && i !== mainTags.length - 3) {
+                let currentTagAbbreviation = mainTags[i].textContent;
+                for (let x = 0; x < tagsData.length; x++) {
+                    if (tagsData[x].tag_abbreviation == currentTagAbbreviation) {
+                        mainTags[i].setAttribute('data-html', 'true');
+                        mainTags[i].setAttribute('aria-label', tagsData[x].tag_name + ' \n ' + tagsData[x].tag_abbreviation + ' \n ' + tagsData[x].tag_description);
+                        mainTags[i].setAttribute('data-balloon-break', '');
+                        mainTags[i].setAttribute('data-balloon-pos', 'down-right');
+                    }
+                }
+            }
+        }
     }
     initTagsInput();
 
@@ -247,44 +266,54 @@ $(function() {
     $('#newTagSubmit').click(function() {
         let specialChars = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/;
         let tagName = $('#newTagName').val();
-        if (!specialChars.test(tagName)) {
-            let tagDescription = $('#newTagDescription').val();
-            let tagAbbreviation = $('#newTagAbbreviation').val();
-            let specialCharsAbbr = /[ !@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/;
-            if (!specialCharsAbbr.test(tagAbbreviation)) {
-                let tag = {
-                    "name": tagName,
-                    "abbreviation": tagAbbreviation,
-                    "description": tagDescription
-                };
-                let tagStr = JSON.stringify(tag);
-                $.ajax({
-                    method: "POST",
-                    url: "backend/fetch.php",
-                    data: {
-                        option: "post_tag",
-                        data: tagStr
-                    },
-                    success: function(data) {
-                        if (isJson(data)) {
-                            let response = JSON.parse(data);
-                            if (response[0].status == "OKAY") {
-                                $('#newTagName').val('');
-                                $('#newTagDescription').val('');
-                                $('#newTagAbbreviation').val('');
-                                getTags();
-                            } else {
-                                console.log('error');
-                                console.log(response[0]);
+        if (tagName.length > 0) {
+            if (!specialChars.test(tagName)) {
+                let tagDescription = $('#newTagDescription').val();
+                let tagAbbreviation = $('#newTagAbbreviation').val();
+                let specialCharsAbbr = /[ !@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/;
+                if (tagAbbreviation.length > 0) {
+                    if (!specialCharsAbbr.test(tagAbbreviation)) {
+                        let tag = {
+                            "name": tagName,
+                            "abbreviation": tagAbbreviation,
+                            "description": tagDescription,
+                            "multiple": 0
+                        };
+                        let tagStr = JSON.stringify(tag);
+                        $.ajax({
+                            method: "POST",
+                            url: "backend/fetch.php",
+                            data: {
+                                option: "post_tag",
+                                data: tagStr
+                            },
+                            success: function(data) {
+                                if (isJson(data)) {
+                                    let response = JSON.parse(data);
+                                    if (response[0].status == "OKAY") {
+                                        $('#newTagName').val('');
+                                        $('#newTagDescription').val('');
+                                        $('#newTagAbbreviation').val('');
+                                        openCloseCreateTagInterface();
+                                        getTags();
+                                    } else {
+                                        console.log('error');
+                                        console.log(response[0]);
+                                    }
+                                }
                             }
-                        }
+                        });
+                    } else {
+                        console.log('special characters used in abbreviation');
                     }
-                });
+                } else {
+                    console.log('Tag abbreviation empty');
+                }
             } else {
-                console.log('special characters used');
+                console.log('special characters used tag name');
             }
         } else {
-            console.log('special characters used');
+            console.log('Tag name empty');
         }
     });
 
