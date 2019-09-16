@@ -55,7 +55,7 @@ $(function() {
         // Adding unique identifier to each new tag
         for (let i = 0; i < mainTags.length; i++) {
             if (i !== 0 && i !== 1 && i !== mainTags.length - 1 && i !== mainTags.length - 2 && i !== mainTags.length - 3) {
-                let currentTagAbbreviation = mainTags[i].textContent;
+                let currentTagAbbreviation = mainTags[i].textContent.match(/[a-zA-Z]+/g).join();
                 for (let x = 0; x < tagsData.length; x++) {
                     if (tagsData[x].tag_abbreviation == currentTagAbbreviation) {
                         mainTags[i].setAttribute('data-html', 'true');
@@ -224,9 +224,9 @@ $(function() {
                     tagsData.forEach(element => {
                         if (element.tag_id == tagIDString) {
                             tagAbbreviation = element.tag_abbreviation;
-                        }
-                        if (element.tag_multiple == 1) {
-                            tagMultiple = true;
+                            if (element.tag_multiple == 1) {
+                                tagMultiple = true;
+                            }
                         }
                     });
                 
@@ -275,6 +275,7 @@ $(function() {
                     if (multipleTagInput.val() < 0) {
                         multipleTagInput.val('0');
                     }
+                    multipleCounter = multipleTagInput.val();
                 });
             }
         });
