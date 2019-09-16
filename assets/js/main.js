@@ -262,6 +262,29 @@ $(function() {
         }
     });
 
+    let taglineData;
+    let taglineHistory = $('#taglineHistory');
+
+    // Get taglines
+    function getTaglines() {
+        taglineHistory.empty();
+        $.ajax({
+            method: "POST",
+            url: "backend/fetch.php",
+            data: {
+                option: "get_taglines"
+            },
+            dataType: "JSON",
+            success: function(data) {
+                data.forEach(element => {
+                    taglineHistory.append('<li id="tagline_id_' + element.tagline_id + '" >' + element.tagline_data + '<li>');
+                });
+                taglineData = data;
+            }
+        });
+    }
+    getTaglines();
+
     // Post Tag
     $('#newTagSubmit').click(function() {
         let specialChars = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/;
@@ -345,7 +368,7 @@ $(function() {
                 data: tagline
             },
             success: function(data) {
-                console.log(data);
+                getTaglines();
             }
         });
     });
