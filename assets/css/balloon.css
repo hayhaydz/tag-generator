@@ -8,7 +8,8 @@ button[aria-label][data-balloon-pos] {
 
 [aria-label][data-balloon-pos] {
   position: relative;
-  cursor: pointer; }
+  cursor: pointer;
+  width:100%; }
   [aria-label][data-balloon-pos]:after {
     opacity: 0;
     pointer-events: none;
@@ -20,14 +21,16 @@ button[aria-label][data-balloon-pos] {
     text-shadow: none;
     font-size: var(--balloon-font-size);
     background: var(--balloon-color);
-    border-radius: 2px;
+    border-radius: 15px;
     color: #fff;
     content: attr(aria-label);
-    padding: .5em 1em;
     position: absolute;
-    white-space: pre-line;
-    max-width:90%;
-    z-index: 100; }
+    padding:15px;
+    min-width:91%;
+    left:-1px;
+    z-index:100;
+    white-space:pre-line;
+   }
   [aria-label][data-balloon-pos]:before {
     width: 0;
     height: 0;

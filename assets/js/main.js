@@ -7,10 +7,10 @@ $(function() {
     $("#createCustomTag").click(function() {
         if (!createTagInterfaceOpen) {
             createTagInterfaceOpen = true;
-            createTagInterface.animate({"max-height": "500px"}, 250);
+            createTagInterface.animate({"height": "230px"}, 250);
         } else {
             createTagInterfaceOpen = false;
-            createTagInterface.animate({"max-height": "0"}, 250);
+            createTagInterface.animate({"height": "0"}, 250);
         }
     });
 
@@ -184,7 +184,7 @@ $(function() {
             success: function(data) {
                 let tagList = $('#tagsList');
                 data.forEach(element => {
-                    tagList.append('<li><div class="tagName mainTag" id="tag_id_' + element.tag_id + '" data-html="true" aria-label="' + element.tag_name + '&#10;' + element.tag_abbreviation + '&#10;' + element.tag_description + '" data-balloon-break data-balloon-pos="down-right"><i class="fal fa-plus-circle mainTagAdd"></i>' + element.tag_name +'</div><li>');
+                    tagList.append('<li><div class="tagName mainTag" id="tag_id_' + element.tag_id + '" data-html="true" aria-label="' + 'Abbreviation: ' + element.tag_abbreviation + '&#10;' + '&#10;' + element.tag_description + '" data-balloon-break data-balloon-pos="down-right"><i class="fal fa-plus-circle mainTagAdd"></i>' + element.tag_name +'</div><li>');
                 });
 
                 tagsData = data;
