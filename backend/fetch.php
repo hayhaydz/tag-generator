@@ -43,7 +43,7 @@ if (isset($_POST["option"])) {
             $resultAbbreviation = $con->query($sqlAbbreviation);
 
             if ($resultAbbreviation->num_rows <= 0) {
-                $sql = "INSERT INTO tags (`tag_name`, `tag_abbreviation`, `tag_description`) VALUES ('".$tag['name']."', '".$tag['abbreviation']."', '".$tag['description']."')";
+                $sql = "INSERT INTO tags (`tag_name`, `tag_abbreviation`, `tag_description`, `tag_multiple`) VALUES ('".$tag['name']."', '".$tag['abbreviation']."', '".$tag['description']."', '".$tag['multiple']."')";
                 if (mysqli_query($con, $sql)) {
                     $return_array[] = array(
                         "status" => "OKAY",
@@ -53,7 +53,7 @@ if (isset($_POST["option"])) {
                     echo json_encode($return_array);
                 } else {
                     $return_array[] = array(
-                        "status" => "OKAY",
+                        "status" => "ERROR",
                         "message" => "Error: " . $sql . "" . mysqli_error($con)
                     );
         
