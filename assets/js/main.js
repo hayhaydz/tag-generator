@@ -289,8 +289,9 @@ $(function() {
             let quickFilterData = [];
             for (let i = 0; i < tagsData.length; i++) {
                 let tagsDataName = tagsData[i].tag_name.toLowerCase();
+                let tagsDataAbbreviation = tagsData[i].tag_abbreviation.toLowerCase();
                 let quickFilterInputValueLC = quickFilterInputValue.toLowerCase();
-                if (tagsDataName.includes(quickFilterInputValueLC)) {
+                if (tagsDataName.includes(quickFilterInputValueLC) || tagsDataAbbreviation.includes(quickFilterInputValueLC)) {
                     quickFilterData.push(tagsData[i]);
                 }
                 
