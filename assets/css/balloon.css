@@ -24,10 +24,13 @@ button[aria-label][data-balloon-pos] {
     border-radius: 15px;
     color: #fff;
     content: attr(aria-label);
-    position: absolute;
     padding:15px;
-    min-width:91%;
-    left:-1px;
+    min-width:200px;
+    max-width:200px;
+    height:fit-content;
+    position: fixed;
+    top:15px;
+    left:300px;
     z-index:100;
     white-space:pre-line;
    }

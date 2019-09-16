@@ -61,7 +61,7 @@ $(function() {
                         mainTags[i].setAttribute('data-html', 'true');
                         mainTags[i].setAttribute('aria-label', tagsData[x].tag_name + ' \n ' + tagsData[x].tag_abbreviation + ' \n ' + tagsData[x].tag_description);
                         mainTags[i].setAttribute('data-balloon-break', '');
-                        mainTags[i].setAttribute('data-balloon-pos', 'down-right');
+                        mainTags[i].setAttribute('data-balloon-pos', 'up-right');
                     }
                 }
             }
@@ -203,7 +203,7 @@ $(function() {
             success: function(data) {
                 let tagList = $('#tagsList');
                 data.forEach(element => {
-                    tagList.append('<li><div class="tagName mainTag" id="tag_id_' + element.tag_id + '" data-html="true" aria-label="' + 'Abbreviation: ' + element.tag_abbreviation + '&#10;' + '&#10;' + element.tag_description + '" data-balloon-break data-balloon-pos="down-right"><i class="fal fa-plus-circle mainTagAdd"></i>' + element.tag_name +'</div><li>');
+                    tagList.append('<li><div class="tagName mainTag" id="tag_id_' + element.tag_id + '" data-html="true" aria-label="' + 'Abbreviation: ' + element.tag_abbreviation + '&#10;' + '&#10;' + element.tag_description + '" data-balloon-break><i class="fal fa-plus-circle mainTagAdd"></i>' + element.tag_name +'</div><li>');
                 });
 
                 tagsData = data;

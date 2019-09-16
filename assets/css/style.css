@@ -359,6 +359,7 @@ input:focus, textarea, select:focus {
     white-space: nowrap;
     display: inline-block;
     border-radius: 10px;
+    max-width: fit-content;
 }
 
 #scrollbar {
