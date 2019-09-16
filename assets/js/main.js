@@ -333,14 +333,28 @@ $(function() {
             },
             dataType: "JSON",
             success: function(data) {
+                data.reverse();
                 data.forEach(element => {
-                    taglineHistory.append('<li id="tagline_id_' + element.tagline_id + '" >' + element.tagline_data + '<li>');
+                    taglineHistory.append('<li class="previous_tagline" id="tagline_id_' + element.tagline_id + '" >' + element.tagline_data + '<li>');
                 });
                 taglineData = data;
+
+                let previous_taglines = $('.previous_tagline');
+                previous_taglines.click(function() {
+                    let taglineRaw = $(this)[0].textContent;
+                    let taglineArr = taglineRaw.split('-');
+                    let taglineVal = taglineArr.join();
+                    let tagline = taglineVal.replace(/\[/g,'').replace(/\]/g, '');
+                    tagRow.tagsinput('destroy');
+                    $('.mainTagRow').val(tagline);
+                    initTagsInput();
+                });
+
             }
         });
     }
     getTaglines();
+
 
     // Post Tag
     $('#newTagSubmit').click(function() {
