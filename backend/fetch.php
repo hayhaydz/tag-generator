@@ -83,7 +83,24 @@ if (isset($_POST["option"])) {
     }
 
     if ($_POST["option"] == "get_taglines") {
-        # code...
+        mysqli_select_db($con,"previous_taglines");
+        $sql="SELECT * FROM previous_taglines";
+        $result = mysqli_query($con,$sql);
+        $return_array = array();
+
+        while($row = mysqli_fetch_array($result)) {
+            $id = $row['tagline_id'];
+            $data = $row['tagline_data'];
+
+            $return_array[] = array(
+                "tagline_id" => $id,
+                "tagline_data" => $data,
+            );
+        }
+
+        echo json_encode($return_array);
+
+        mysqli_close($con);
     }
 
     if ($_POST["option"] == "post_tagline") {
