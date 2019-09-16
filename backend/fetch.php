@@ -15,12 +15,14 @@ if (isset($_POST["option"])) {
             $name = $row['tag_name'];
             $abbreviation = $row['tag_abbreviation'];
             $description = $row['tag_description'];
+            $multiple = $row['tag_multiple'];
 
             $return_array[] = array(
                 "tag_id" => $id,
                 "tag_name" => $name,
                 "tag_abbreviation" => $abbreviation,
-                "tag_description" => $description
+                "tag_description" => $description,
+                "tag_multiple" => $multiple
             );
         }
 
