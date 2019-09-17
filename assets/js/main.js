@@ -437,18 +437,22 @@ $(function() {
         taglineArrSplice = taglineArrSpliced.splice(taglineDateLoc, 1, "[" + taglineArr[taglineDateLoc] + "]");
         let taglineVal = taglineArrSpliced.join();
         let tagline = taglineVal.replace(/,/g,'-');
-        copyToClipboard(tagline);
-        $.ajax({
-            method: "POST",
-            url: "backend/fetch.php",
-            data: {
-                option: "post_tagline",
-                data: tagline
-            },
-            success: function(data) {
-                getTaglines();
-            }
-        });
+        if (tagline !== taglineData[0].tagline_data && tagline !== taglineData[1].tagline_data) {
+            copyToClipboard(tagline);
+            $.ajax({
+                method: "POST",
+                url: "backend/fetch.php",
+                data: {
+                    option: "post_tagline",
+                    data: tagline
+                },
+                success: function(data) {
+                    getTaglines();
+                }
+            });
+        } else {
+            console.log('Tagline already exists');
+        }
     });
 
 });
