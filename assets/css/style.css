@@ -215,6 +215,7 @@ input:focus, textarea, select:focus {
 }
 
 .wrapper {
+    position: relative;
     display:flex;
     flex-direction: column;
     justify-content: center;
@@ -430,4 +431,19 @@ input:focus, textarea, select:focus {
 
 .taglineHistory li:hover {
     color:grey;
+}
+
+.errorMessageContainer {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.errorMessage {
+    opacity: 0;
 }

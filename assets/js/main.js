@@ -18,6 +18,29 @@ $(function() {
         openCloseCreateTagInterface();
     });
 
+    // Error message
+    function errorMessage(errorMessageData, option) {
+        $('#errorMessage').animate({opacity: 0}, 250);
+        $('#errorMessage').remove();
+        let error = $('#errorMessageContainer');
+        let errorMessage = errorMessageData;
+
+        error.append('<p class="errorMessage" id="errorMessage">' + errorMessage + '</p>');
+        let errorP = $('#errorMessage');
+
+        if (option == "ERROR") {
+            errorP.css({color: 'red'});
+        } else if (option == "INFO") {
+            errorP.css({color: 'green'});
+        }
+
+        errorP.animate({opacity: 1}, 100);
+        setTimeout(() => {
+            errorP.animate({opacity: 0}, 250);
+            errorP.remove();
+        }, 3000);
+    }
+
     // Date Tag
     document.getElementById('tagDate').valueAsDate = new Date();
 
@@ -75,7 +98,7 @@ $(function() {
     tagName.on('input', function() {
         let tagNameVal = tagName.val();
         if (tagNameVal !== "") {
-            let specialChars = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/;
+            let specialChars = /[!@#$£%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/;
             if (!specialChars.test(tagNameVal)) {
                 tagRow.tagsinput('destroy');
                 let currentInputVal = $('#tagRow').val();
@@ -85,7 +108,7 @@ $(function() {
                 $('.mainTagRow').val(inputVal);
                 initTagsInput();
             } else {
-                console.log('special characters in brand name');
+                errorMessage("Special characters aren't allowed in the brand name", "ERROR");
             }
         }
         else {
@@ -204,9 +227,9 @@ $(function() {
                 let tagList = $('#tagsList');
                 data.forEach(element => {
                     if (element.tag_multiple == 0) {
-                        tagList.append('<li><div class="tagName mainTag" id="tag_id_' + element.tag_id + '" data-html="true" aria-label="' + 'Abbreviation: ' + element.tag_abbreviation + '&#10;' + '&#10;' + element.tag_description + '" data-balloon-break data-balloon-pos="down-right"><i class="fal fa-plus-circle mainTagAdd"></i>' + element.tag_name +'</div><li>');
+                        tagList.append('<li><div class="tagName mainTag" id="tag_id_' + element.tag_id + '" ><i class="fal fa-plus-circle mainTagAdd"></i>' + element.tag_name +'</div><li>');
                     } else {
-                        tagList.append('<li><div class="tagName mainTag" id="tag_id_' + element.tag_id + '" data-html="true" aria-label="' + 'Abbreviation: ' + element.tag_abbreviation + '&#10;' + '&#10;' + element.tag_description + '" data-balloon-break data-balloon-pos="down-right"><i class="fal fa-plus-circle mainTagAdd"></i>' + element.tag_name +' <div class="mainTagMultipleCounterCointainer" ><span class="mainTagMultipleCounterMinus" id="mainTagMultipleCounterMinus" >-</span><input type="text" class="mainTagMultipleCounterInput" id="mainTagMultipleCounterInput" value="0" placeholder="0" maxlength="3" /><span class="mainTagMultipleCounterPlus" id="mainTagMultipleCounterPlus" >+</span></div></div><li>');
+                        tagList.append('<li><div class="tagName mainTag" id="tag_id_' + element.tag_id + '" ><i class="fal fa-plus-circle mainTagAdd"></i>' + element.tag_name +' <div class="mainTagMultipleCounterCointainer" ><span class="mainTagMultipleCounterMinus" id="mainTagMultipleCounterMinus" >-</span><input type="text" class="mainTagMultipleCounterInput" id="mainTagMultipleCounterInput" value="0" placeholder="0" maxlength="3" /><span class="mainTagMultipleCounterPlus" id="mainTagMultipleCounterPlus" >+</span></div></div><li>');
                     }
                 });
 
@@ -301,18 +324,18 @@ $(function() {
             tagsList.empty();
             quickFilterData.forEach(element => {
                 if (element.tag_multiple == 0) {
-                    tagsList.append('<li><div class="tagName mainTag" id="tag_id_' + element.tag_id + '" data-html="true" aria-label="' + 'Abbreviation: ' + element.tag_abbreviation + '&#10;' + '&#10;' + element.tag_description + '" data-balloon-break data-balloon-pos="down-right"><i class="fal fa-plus-circle mainTagAdd"></i>' + element.tag_name +'</div><li>');
+                    tagsList.append('<li><div class="tagName mainTag" id="tag_id_' + element.tag_id + '" ><i class="fal fa-plus-circle mainTagAdd"></i>' + element.tag_name +'</div><li>');
                 } else {
-                    tagsList.append('<li><div class="tagName mainTag" id="tag_id_' + element.tag_id + '" data-html="true" aria-label="' + 'Abbreviation: ' + element.tag_abbreviation + '&#10;' + '&#10;' + element.tag_description + '" data-balloon-break data-balloon-pos="down-right"><i class="fal fa-plus-circle mainTagAdd"></i>' + element.tag_name +' <div class="mainTagMultipleCounterCointainer" ><span class="mainTagMultipleCounterMinus" id="mainTagMultipleCounterMinus" >-</span><input type="text" class="mainTagMultipleCounterInput" id="mainTagMultipleCounterInput" value="0" placeholder="0" maxlength="3" /><span class="mainTagMultipleCounterPlus" id="mainTagMultipleCounterPlus" >+</span></div></div><li>');
+                    tagsList.append('<li><div class="tagName mainTag" id="tag_id_' + element.tag_id + '" ><i class="fal fa-plus-circle mainTagAdd"></i>' + element.tag_name +' <div class="mainTagMultipleCounterCointainer" ><span class="mainTagMultipleCounterMinus" id="mainTagMultipleCounterMinus" >-</span><input type="text" class="mainTagMultipleCounterInput" id="mainTagMultipleCounterInput" value="0" placeholder="0" maxlength="3" /><span class="mainTagMultipleCounterPlus" id="mainTagMultipleCounterPlus" >+</span></div></div><li>');
                 }            
             });
         } else {
             tagsList.empty();
             tagsData.forEach(element => {
                 if (element.tag_multiple == 0) {
-                    tagsList.append('<li><div class="tagName mainTag" id="tag_id_' + element.tag_id + '" data-html="true" aria-label="' + 'Abbreviation: ' + element.tag_abbreviation + '&#10;' + '&#10;' + element.tag_description + '" data-balloon-break data-balloon-pos="down-right"><i class="fal fa-plus-circle mainTagAdd"></i>' + element.tag_name +'</div><li>');
+                    tagsList.append('<li><div class="tagName mainTag" id="tag_id_' + element.tag_id + '" ><i class="fal fa-plus-circle mainTagAdd"></i>' + element.tag_name +'</div><li>');
                 } else {
-                    tagsList.append('<li><div class="tagName mainTag" id="tag_id_' + element.tag_id + '" data-html="true" aria-label="' + 'Abbreviation: ' + element.tag_abbreviation + '&#10;' + '&#10;' + element.tag_description + '" data-balloon-break data-balloon-pos="down-right"><i class="fal fa-plus-circle mainTagAdd"></i>' + element.tag_name +' <div class="mainTagMultipleCounterCointainer" ><span class="mainTagMultipleCounterMinus" id="mainTagMultipleCounterMinus" >-</span><input type="text" class="mainTagMultipleCounterInput" id="mainTagMultipleCounterInput" value="0" placeholder="0" maxlength="3" /><span class="mainTagMultipleCounterPlus" id="mainTagMultipleCounterPlus" >+</span></div></div><li>');
+                    tagsList.append('<li><div class="tagName mainTag" id="tag_id_' + element.tag_id + '" ><i class="fal fa-plus-circle mainTagAdd"></i>' + element.tag_name +' <div class="mainTagMultipleCounterCointainer" ><span class="mainTagMultipleCounterMinus" id="mainTagMultipleCounterMinus" >-</span><input type="text" class="mainTagMultipleCounterInput" id="mainTagMultipleCounterInput" value="0" placeholder="0" maxlength="3" /><span class="mainTagMultipleCounterPlus" id="mainTagMultipleCounterPlus" >+</span></div></div><li>');
                 }            
             });
         }
@@ -358,13 +381,13 @@ $(function() {
 
     // Post Tag
     $('#newTagSubmit').click(function() {
-        let specialChars = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?1234567890]/;
+        let specialChars = /[!@#$£%^&*()_+\-=\[\]{};':"\\|,.<>\/?1234567890]/;
         let tagName = $('#newTagName').val();
         if (tagName.length > 0) {
             if (!specialChars.test(tagName)) {
                 let tagDescription = $('#newTagDescription').val();
                 let tagAbbreviation = $('#newTagAbbreviation').val();
-                let specialCharsAbbr = /[ !@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?1234567890]/;
+                let specialCharsAbbr = /[ !@#$£%^&*()_+\-=\[\]{};':"\\|,.<>\/?1234567890]/;
                 if (tagAbbreviation.length > 0) {
                     if (!specialCharsAbbr.test(tagAbbreviation)) {
                         let newTagMultipleBoolean = $('#newTagMultiple')[0].checked;
@@ -405,16 +428,16 @@ $(function() {
                             }
                         });
                     } else {
-                        console.log('special characters used in abbreviation');
+                        errorMessage("Special characters aren't allowed in the abbreviation", "ERROR");
                     }
                 } else {
-                    console.log('Tag abbreviation empty');
+                    errorMessage("Abbreviation tag can't be blank", "ERROR");
                 }
             } else {
-                console.log('special characters used tag name');
+                errorMessage("Special characters aren't allowed in the tag name", "ERROR");
             }
         } else {
-            console.log('Tag name empty');
+            errorMessage("Tag name can't be blank", "ERROR");
         }
     });
 
@@ -451,7 +474,7 @@ $(function() {
                 }
             });
         } else {
-            console.log('Tagline already exists');
+            errorMessage("This tagline already exists recently", "ERROR");
         }
     });
 
