@@ -16,13 +16,15 @@ if (isset($_POST["option"])) {
             $abbreviation = $row['tag_abbreviation'];
             $description = $row['tag_description'];
             $multiple = $row['tag_multiple'];
+            $custom = $row['tag_custom'];
 
             $return_array[] = array(
                 "tag_id" => $id,
                 "tag_name" => $name,
                 "tag_abbreviation" => $abbreviation,
                 "tag_description" => $description,
-                "tag_multiple" => $multiple
+                "tag_multiple" => $multiple,
+                "tag_custom" => $custom
             );
         }
 
@@ -45,7 +47,7 @@ if (isset($_POST["option"])) {
             $resultAbbreviation = $con->query($sqlAbbreviation);
 
             if ($resultAbbreviation->num_rows <= 0) {
-                $sql = "INSERT INTO tags (`tag_name`, `tag_abbreviation`, `tag_description`, `tag_multiple`) VALUES ('".$tag['name']."', '".$tag['abbreviation']."', '".$tag['description']."', '".$tag['multiple']."')";
+                $sql = "INSERT INTO tags (`tag_name`, `tag_abbreviation`, `tag_description`, `tag_multiple`, `tag_custom`) VALUES ('".$tag['name']."', '".$tag['abbreviation']."', '".$tag['description']."', '".$tag['multiple']."', '".$tag['custom']."')";
                 if (mysqli_query($con, $sql)) {
                     $return_array[] = array(
                         "status" => "OKAY",
@@ -82,6 +84,18 @@ if (isset($_POST["option"])) {
             echo json_encode($return_array);
         }
         mysqli_close($con);
+    }
+
+    if ($_POST["option"] == "remove_tag") {
+        $tagID = $_POST['data'];
+
+        $sql = "DELETE FROM `tags` WHERE `tag_id` = '$tagID'";
+        if ($con->query($sql) === TRUE) {
+            echo "Tag was deleted successfully";
+        } else {
+            echo "Error deleting record: " . $con->error;
+        }
+
     }
 
     if ($_POST["option"] == "get_taglines") {

@@ -19,25 +19,25 @@ $(function() {
     });
 
     // Error message
-    function errorMessage(errorMessageData, option) {
-        $('#errorMessage').animate({opacity: 0}, 250);
-        $('#errorMessage').remove();
-        let error = $('#errorMessageContainer');
-        let errorMessage = errorMessageData;
+    function displayMessage(displayMessageData, option) {
+        $('#displayMessage').animate({opacity: 0}, 250);
+        $('#displayMessage').remove();
+        let display = $('#displayMessageContainer');
+        let displayMessage = displayMessageData;
 
-        error.append('<p class="errorMessage" id="errorMessage">' + errorMessage + '</p>');
-        let errorP = $('#errorMessage');
+        display.append('<p class="displayMessage" id="displayMessage">' + displayMessage + '</p>');
+        let displayP = $('#displayMessage');
 
         if (option == "ERROR") {
-            errorP.css({color: 'red'});
+            displayP.css({color: 'red'});
         } else if (option == "INFO") {
-            errorP.css({color: 'green'});
+            displayP.css({color: 'green'});
         }
 
-        errorP.animate({opacity: 1}, 100);
+        displayP.animate({opacity: 1}, 100);
         setTimeout(() => {
-            errorP.animate({opacity: 0}, 250);
-            errorP.remove();
+            displayP.animate({opacity: 0}, 250);
+            displayP.remove();
         }, 3000);
     }
 
@@ -108,7 +108,7 @@ $(function() {
                 $('.mainTagRow').val(inputVal);
                 initTagsInput();
             } else {
-                errorMessage("Special characters aren't allowed in the brand name", "ERROR");
+                displayMessage("Special characters aren't allowed in the brand name", "ERROR");
             }
         }
         else {
@@ -227,9 +227,17 @@ $(function() {
                 let tagList = $('#tagsList');
                 data.forEach(element => {
                     if (element.tag_multiple == 0) {
-                        tagList.append('<li><div class="tagName mainTag" id="tag_id_' + element.tag_id + '" ><i class="fal fa-plus-circle mainTagAdd"></i>' + element.tag_name +'</div><li>');
+                        if (element.tag_custom == 0) {
+                            tagList.append('<li><div class="tagName mainTag" id="tag_id_' + element.tag_id + '" ><i class="fal fa-plus-circle mainTagAdd"></i>' + element.tag_name +'</div><li>');
+                        } else {
+                            tagList.append('<li><div class="tagName mainTag" id="tag_id_' + element.tag_id + '" ><i class="fal fa-plus-circle mainTagAdd"></i>' + element.tag_name +' <div class="mainTagRemoveContainer" ><i class="far fa-times-circle mainTagRemove"></i></div></div><li>');
+                        }
                     } else {
-                        tagList.append('<li><div class="tagName mainTag" id="tag_id_' + element.tag_id + '" ><i class="fal fa-plus-circle mainTagAdd"></i>' + element.tag_name +' <div class="mainTagMultipleCounterCointainer" ><span class="mainTagMultipleCounterMinus" id="mainTagMultipleCounterMinus" >-</span><input type="text" class="mainTagMultipleCounterInput" id="mainTagMultipleCounterInput" value="0" placeholder="0" maxlength="3" /><span class="mainTagMultipleCounterPlus" id="mainTagMultipleCounterPlus" >+</span></div></div><li>');
+                        if (element.tag_custom == 0) {
+                            tagList.append('<li><div class="tagName mainTag" id="tag_id_' + element.tag_id + '" ><i class="fal fa-plus-circle mainTagAdd"></i>' + element.tag_name +' <div class="mainTagMultipleCounterCointainer" ><span class="mainTagMultipleCounterMinus" id="mainTagMultipleCounterMinus" >-</span><input type="text" class="mainTagMultipleCounterInput" id="mainTagMultipleCounterInput" value="0" placeholder="0" maxlength="3" /><span class="mainTagMultipleCounterPlus" id="mainTagMultipleCounterPlus" >+</span></div></div><li>');
+                        } else {
+                            tagList.append('<li><div class="tagName mainTag" id="tag_id_' + element.tag_id + '" ><i class="fal fa-plus-circle mainTagAdd"></i>' + element.tag_name +' <div class="mainTagMultipleCounterCointainer" ><span class="mainTagMultipleCounterMinus" id="mainTagMultipleCounterMinus" >-</span><input type="text" class="mainTagMultipleCounterInput" id="mainTagMultipleCounterInput" value="0" placeholder="0" maxlength="3" /><span class="mainTagMultipleCounterPlus" id="mainTagMultipleCounterPlus" >+</span></div> <div class="mainTagRemoveContainer" ><i class="far fa-times-circle mainTagRemove" ></i></div></div><li>');
+                        }
                     }
                 });
 
@@ -300,6 +308,25 @@ $(function() {
                     }
                     multipleCounter = multipleTagInput.val();
                 });
+
+                // Remove tags
+                $('.mainTagRemove').click(function() {
+                    let tag = $(this).parent().parent();
+                    let tagID = tag.attr('id').replace('tag_id_', '');
+
+                    $.ajax({
+                        method: "POST",
+                        url: "backend/fetch.php",
+                        data: {
+                            option: "remove_tag",
+                            data: tagID
+                        },
+                        success: function(data) {
+                            getTags();
+                            displayMessage(data, "INFO");
+                        }
+                    });
+                });
             }
         });
     }
@@ -324,19 +351,35 @@ $(function() {
             tagsList.empty();
             quickFilterData.forEach(element => {
                 if (element.tag_multiple == 0) {
-                    tagsList.append('<li><div class="tagName mainTag" id="tag_id_' + element.tag_id + '" ><i class="fal fa-plus-circle mainTagAdd"></i>' + element.tag_name +'</div><li>');
+                    if (element.tag_custom == 0) {
+                        tagsList.append('<li><div class="tagName mainTag" id="tag_id_' + element.tag_id + '" ><i class="fal fa-plus-circle mainTagAdd"></i>' + element.tag_name +'</div><li>');
+                    } else {
+                        tagsList.append('<li><div class="tagName mainTag" id="tag_id_' + element.tag_id + '" ><i class="fal fa-plus-circle mainTagAdd"></i>' + element.tag_name +' <div class="mainTagRemoveContainer" ><i class="far fa-times-circle mainTagRemove" ></i></div></div><li>');
+                    }
                 } else {
-                    tagsList.append('<li><div class="tagName mainTag" id="tag_id_' + element.tag_id + '" ><i class="fal fa-plus-circle mainTagAdd"></i>' + element.tag_name +' <div class="mainTagMultipleCounterCointainer" ><span class="mainTagMultipleCounterMinus" id="mainTagMultipleCounterMinus" >-</span><input type="text" class="mainTagMultipleCounterInput" id="mainTagMultipleCounterInput" value="0" placeholder="0" maxlength="3" /><span class="mainTagMultipleCounterPlus" id="mainTagMultipleCounterPlus" >+</span></div></div><li>');
-                }            
+                    if (element.tag_custom == 0) {
+                        tagsList.append('<li><div class="tagName mainTag" id="tag_id_' + element.tag_id + '" ><i class="fal fa-plus-circle mainTagAdd"></i>' + element.tag_name +' <div class="mainTagMultipleCounterCointainer" ><span class="mainTagMultipleCounterMinus" id="mainTagMultipleCounterMinus" >-</span><input type="text" class="mainTagMultipleCounterInput" id="mainTagMultipleCounterInput" value="0" placeholder="0" maxlength="3" /><span class="mainTagMultipleCounterPlus" id="mainTagMultipleCounterPlus" >+</span></div></div><li>');
+                    } else {
+                        tagsList.append('<li><div class="tagName mainTag" id="tag_id_' + element.tag_id + '" ><i class="fal fa-plus-circle mainTagAdd"></i>' + element.tag_name +' <div class="mainTagMultipleCounterCointainer" ><span class="mainTagMultipleCounterMinus" id="mainTagMultipleCounterMinus" >-</span><input type="text" class="mainTagMultipleCounterInput" id="mainTagMultipleCounterInput" value="0" placeholder="0" maxlength="3" /><span class="mainTagMultipleCounterPlus" id="mainTagMultipleCounterPlus" >+</span></div> <div class="mainTagRemoveContainer" ><i class="far fa-times-circle mainTagRemove" ></i></div></div><li>');
+                    }
+                }          
             });
         } else {
             tagsList.empty();
             tagsData.forEach(element => {
                 if (element.tag_multiple == 0) {
-                    tagsList.append('<li><div class="tagName mainTag" id="tag_id_' + element.tag_id + '" ><i class="fal fa-plus-circle mainTagAdd"></i>' + element.tag_name +'</div><li>');
+                    if (element.tag_custom == 0) {
+                        tagsList.append('<li><div class="tagName mainTag" id="tag_id_' + element.tag_id + '" ><i class="fal fa-plus-circle mainTagAdd"></i>' + element.tag_name +'</div><li>');
+                    } else {
+                        tagsList.append('<li><div class="tagName mainTag" id="tag_id_' + element.tag_id + '" ><i class="fal fa-plus-circle mainTagAdd"></i>' + element.tag_name +' <div class="mainTagRemoveContainer" ><i class="far fa-times-circle mainTagRemove" ></i></div></div><li>');
+                    }
                 } else {
-                    tagsList.append('<li><div class="tagName mainTag" id="tag_id_' + element.tag_id + '" ><i class="fal fa-plus-circle mainTagAdd"></i>' + element.tag_name +' <div class="mainTagMultipleCounterCointainer" ><span class="mainTagMultipleCounterMinus" id="mainTagMultipleCounterMinus" >-</span><input type="text" class="mainTagMultipleCounterInput" id="mainTagMultipleCounterInput" value="0" placeholder="0" maxlength="3" /><span class="mainTagMultipleCounterPlus" id="mainTagMultipleCounterPlus" >+</span></div></div><li>');
-                }            
+                    if (element.tag_custom == 0) {
+                        tagsList.append('<li><div class="tagName mainTag" id="tag_id_' + element.tag_id + '" ><i class="fal fa-plus-circle mainTagAdd"></i>' + element.tag_name +' <div class="mainTagMultipleCounterCointainer" ><span class="mainTagMultipleCounterMinus" id="mainTagMultipleCounterMinus" >-</span><input type="text" class="mainTagMultipleCounterInput" id="mainTagMultipleCounterInput" value="0" placeholder="0" maxlength="3" /><span class="mainTagMultipleCounterPlus" id="mainTagMultipleCounterPlus" >+</span></div></div><li>');
+                    } else {
+                        tagsList.append('<li><div class="tagName mainTag" id="tag_id_' + element.tag_id + '" ><i class="fal fa-plus-circle mainTagAdd"></i>' + element.tag_name +' <div class="mainTagMultipleCounterCointainer" ><span class="mainTagMultipleCounterMinus" id="mainTagMultipleCounterMinus" >-</span><input type="text" class="mainTagMultipleCounterInput" id="mainTagMultipleCounterInput" value="0" placeholder="0" maxlength="3" /><span class="mainTagMultipleCounterPlus" id="mainTagMultipleCounterPlus" >+</span></div> <div class="mainTagRemoveContainer" ><i class="far fa-times-circle mainTagRemove" ></i></div></div><li>');
+                    }
+                }         
             });
         }
     });
@@ -371,6 +414,7 @@ $(function() {
                     tagRow.tagsinput('destroy');
                     $('.mainTagRow').val(tagline);
                     initTagsInput();
+                    displayMessage('Previous tagline has been added to current tags', 'INFO');
                 });
 
             }
@@ -386,58 +430,64 @@ $(function() {
         if (tagName.length > 0) {
             if (!specialChars.test(tagName)) {
                 let tagDescription = $('#newTagDescription').val();
-                let tagAbbreviation = $('#newTagAbbreviation').val();
-                let specialCharsAbbr = /[ !@#$£%^&*()_+\-=\[\]{};':"\\|,.<>\/?1234567890]/;
-                if (tagAbbreviation.length > 0) {
-                    if (!specialCharsAbbr.test(tagAbbreviation)) {
-                        let newTagMultipleBoolean = $('#newTagMultiple')[0].checked;
-                        let newTagMultiple;
-                        if (newTagMultipleBoolean) {
-                            newTagMultiple = 1;
-                        } else {
-                            newTagMultiple = 0;
-                        }
-                        let tag = {
-                            "name": tagName,
-                            "abbreviation": tagAbbreviation,
-                            "description": tagDescription,
-                            "multiple": newTagMultiple
-                        };
-                        let tagStr = JSON.stringify(tag);
-                        $.ajax({
-                            method: "POST",
-                            url: "backend/fetch.php",
-                            data: {
-                                option: "post_tag",
-                                data: tagStr
-                            },
-                            success: function(data) {
-                                if (isJson(data)) {
-                                    let response = JSON.parse(data);
-                                    if (response[0].status == "OKAY") {
-                                        $('#newTagName').val('');
-                                        $('#newTagDescription').val('');
-                                        $('#newTagAbbreviation').val('');
-                                        openCloseCreateTagInterface();
-                                        getTags();
-                                    } else {
-                                        console.log('error');
-                                        console.log(response[0]);
+                if (tagDescription !== "") {
+                    let tagAbbreviation = $('#newTagAbbreviation').val();
+                    let specialCharsAbbr = /[ !@#$£%^&*()_+\-=\[\]{};':"\\|,.<>\/?1234567890]/;
+                    if (tagAbbreviation.length > 0) {
+                        if (!specialCharsAbbr.test(tagAbbreviation)) {
+                            let newTagMultipleBoolean = $('#newTagMultiple')[0].checked;
+                            let newTagMultiple;
+                            if (newTagMultipleBoolean) {
+                                newTagMultiple = 1;
+                            } else {
+                                newTagMultiple = 0;
+                            }
+                            let tag = {
+                                "name": tagName,
+                                "abbreviation": tagAbbreviation,
+                                "description": tagDescription,
+                                "multiple": newTagMultiple,
+                                "custom": 1
+                            };
+                            let tagStr = JSON.stringify(tag);
+                            $.ajax({
+                                method: "POST",
+                                url: "backend/fetch.php",
+                                data: {
+                                    option: "post_tag",
+                                    data: tagStr
+                                },
+                                success: function(data) {
+                                    if (isJson(data)) {
+                                        let response = JSON.parse(data);
+                                        if (response[0].status == "OKAY") {
+                                            $('#newTagName').val('');
+                                            $('#newTagDescription').val('');
+                                            $('#newTagAbbreviation').val('');
+                                            openCloseCreateTagInterface();
+                                            getTags();
+                                            displayMessage('New tag added successfully','INFO');
+                                        } else {
+                                            console.log('error');
+                                            console.log(response[0]);
+                                        }
                                     }
                                 }
-                            }
-                        });
+                            });
+                        } else {
+                            displayMessage("Special characters aren't allowed in the abbreviation", "ERROR");
+                        }
                     } else {
-                        errorMessage("Special characters aren't allowed in the abbreviation", "ERROR");
+                        displayMessage("Abbreviation tag can't be blank", "ERROR");
                     }
                 } else {
-                    errorMessage("Abbreviation tag can't be blank", "ERROR");
+                    displayMessage('Tag description cannot be blank', 'ERROR');
                 }
             } else {
-                errorMessage("Special characters aren't allowed in the tag name", "ERROR");
+                displayMessage("Special characters aren't allowed in the tag name", "ERROR");
             }
         } else {
-            errorMessage("Tag name can't be blank", "ERROR");
+            displayMessage("Tag name can't be blank", "ERROR");
         }
     });
 
@@ -471,14 +521,15 @@ $(function() {
                 },
                 success: function(data) {
                     getTaglines();
+                    displayMessage('Copied tagline successfully', 'INFO');
                 }
             });
         } else {
-            errorMessage("This tagline already exists recently", "ERROR");
+            displayMessage("This tagline already exists recently", "ERROR");
         }
     });
-
 });
+
 
 // https://stackoverflow.com/questions/9804777/how-to-test-if-a-string-is-json-or-not
 function isJson(str) {

@@ -433,7 +433,7 @@ input:focus, textarea, select:focus {
     color:grey;
 }
 
-.errorMessageContainer {
+.displayMessageContainer {
     position: absolute;
     left: 0;
     right: 0;
@@ -444,6 +444,6 @@ input:focus, textarea, select:focus {
     align-items: center;
 }
 
-.errorMessage {
+.displayMessage {
     opacity: 0;
 }
