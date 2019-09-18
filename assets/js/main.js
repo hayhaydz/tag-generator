@@ -510,8 +510,8 @@ $(function() {
         taglineArrSplice = taglineArrSpliced.splice(taglineDateLoc, 1, "[" + taglineArr[taglineDateLoc] + "]");
         let taglineVal = taglineArrSpliced.join();
         let tagline = taglineVal.replace(/,/g,'-');
+        copyToClipboard(tagline);
         if (tagline !== taglineData[0].tagline_data && tagline !== taglineData[1].tagline_data) {
-            copyToClipboard(tagline);
             $.ajax({
                 method: "POST",
                 url: "backend/fetch.php",
@@ -521,12 +521,10 @@ $(function() {
                 },
                 success: function(data) {
                     getTaglines();
-                    displayMessage('Copied tagline successfully', 'INFO');
                 }
             });
-        } else {
-            displayMessage("This tagline already exists recently", "ERROR");
         }
+        displayMessage('Copied tagline successfully', 'INFO');
     });
 });
 
